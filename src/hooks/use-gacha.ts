@@ -39,7 +39,7 @@ export function useGacha() {
   init()
 
   function init() {
-    const localGacha = localStorage.getItem(CACHE_KEY)
+    const localGacha = sessionStorage.getItem(CACHE_KEY)
     if (localGacha) {
       Object.assign(state, JSON.parse(localGacha))
     } else {
@@ -50,7 +50,7 @@ export function useGacha() {
     }
   }
   function setCache() {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(state))
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify(state))
   }
   /**
    * 获取对应星级角色的权重

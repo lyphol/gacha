@@ -12,13 +12,14 @@
       v-if="state.step === Step.animation && animationUrl"
       class="gacha-video"
       :autoplay="true"
+      :muted="true"
       :controls="false"
       :src="animationUrl"
       @ended="state.step = Step.cover"
     ></video>
 
     <div v-if="state.step === Step.cover" :class="['gacha-cover', { mask: state.showMask }]">
-      <img class="gacha-cover-bg" v-if="state.showMask" :style="{ '--bg': curRankColor }" />
+      <div class="gacha-cover-bg" v-if="state.showMask" :style="{ '--bg': curRankColor }"></div>
       <img class="gacha-cover-img" :src="getImgUrl(props.items[state.index])" />
     </div>
 
@@ -30,7 +31,7 @@
           :key="item.item_name + index"
           :style="{ backgroundImage: `url(${getImgUrl(item, 'result')})` }"
         >
-          <div class="gacha-result-item-text">{{ item.item_name }}</div>
+          <div class="gacha-result-item-text">{{ '★'.repeat(item.rank) }}</div>
         </div>
       </TransitionGroup>
     </div>
@@ -139,7 +140,7 @@ watch(
   () => state.step,
   async (val) => {
     if (val === Step.result) {
-      for (const item of props.items) {
+      for (const item of [...props.items].sort((a, b) => b.rank - a.rank)) {
         state.items.push(item)
         await sleep(50)
       }
@@ -159,7 +160,7 @@ defineExpose({
 .gacha-stage {
   position: fixed;
   inset: 0;
-  background-color: rgba($color: #000, $alpha: 0.5);
+  background-image: url('@/assets/imgs/gacha-bg.png');
   backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
@@ -173,7 +174,6 @@ defineExpose({
     top: 20px;
     color: #fff;
     font-size: 18px;
-    font-weight: 700;
     z-index: 100;
   }
   .gacha-cover,
@@ -218,15 +218,16 @@ defineExpose({
     &-bg {
       backdrop-filter: blur(15px);
       background: radial-gradient(
-        circle at center,
+        circle closest-side at center,
         var(--bg) 0,
-        var(--bg) 30%,
-        transparent 40%,
-        transparent 50%,
-        var(--bg) 60%,
-        transparent 100%
+        var(--bg) 80%,
+        transparent 100%,
+        transparent 130%,
+        var(--bg) 150%,
+        var(--bg) 170%,
+        transparent 200%
       );
-      opacity: 0.5;
+      opacity: 0.3;
     }
   }
 
@@ -244,12 +245,25 @@ defineExpose({
       transform: translateX(2000px);
     }
     &-item {
-      margin-left: 30px;
-      width: 120px;
+      margin-left: 6px;
+      width: 8%;
       flex-grow: none;
-      height: 70%;
+      aspect-ratio: 176 / 706;
       background-color: #2d313b;
       background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      &-text {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        color: gold;
+        font-size: 20px;
+        text-align: center;
+        font-weight: 700;
+      }
     }
   }
 }

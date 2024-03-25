@@ -3,11 +3,10 @@
     <header>祈愿</header>
 
     <main>
-      <!-- <img
+      <img
         class="gacha-banner"
         src="https://upload-bbs.miyoushe.com/upload/2024/03/08/75276539/a8a7c4e258ab06b740c30894ef349bed_4719338358654233357.jpg"
-      /> -->
-      <!-- <div></div> -->
+      />
     </main>
 
     <footer>
@@ -70,27 +69,12 @@ const handleTenClick = () => {
   }
 
   main {
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 16 / 9;
     > img {
       height: 96%;
-    }
-    > div {
-      height: 96%;
-      aspect-ratio: 16 / 9;
-      --bg: rgba(0, 85, 255, 0.5);
-      background: radial-gradient(
-        circle closest-side at center,
-        var(--bg) 0,
-        var(--bg) 70%,
-        transparent 90%,
-        transparent 100%,
-        var(--bg) 130%,
-        transparent 180%
-      );
-      background-color: #666;
     }
   }
 }
