@@ -55,7 +55,7 @@ export function useGacha() {
   /**
    * 获取对应星级角色的权重
    * @param rank 星级
-   * @param count 距上次未出对应星级的次数
+   * @param count 距上次出对应星级的抽数
    * @returns 权重
    */
   function getRoleWeight(rank: number, count: number) {
@@ -80,7 +80,7 @@ export function useGacha() {
   function getRoleRank() {
     const weight = getRandomNum()
     const weight5 = getRoleWeight(5, state.no_r5_count)
-    const weight4 = getRoleWeight(4, state.no_r4_count) + weight5
+    const weight4 = getRoleWeight(4, state.no_r4_count)
 
     if (weight <= weight5) {
       return 5
@@ -120,7 +120,7 @@ export function useGacha() {
     }
 
     // 记录抽卡历史
-    state.gacha_history.push({ ...res })
+    state.gacha_history.push({ ...res, wish_time: Date.now() })
     setCache()
     return { ...res }
   }

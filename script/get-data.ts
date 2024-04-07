@@ -11,11 +11,21 @@ export const apiGetGachaInfo = (id: string) => {
   return fetch(`${BASE_URL}/${id}/zh-cn.json`).then((r) => r.json())
 }
 
+type WishData = {
+  begin_time: string
+  end_time: string
+  gacha_id: string
+  gacha_name: string
+  gacha_type: number
+}
+
 const getWishData = async () => {
   const {
     data: { list }
-  }: any = await apiGetGachaList()
-  const wish = list.find((x: any) => x.gacha_type === 301)
+  } = (await apiGetGachaList()) as { data: { list: WishData[] } }
+  const wish = list
+    .filter((x) => x.gacha_type === 301)
+    .toSorted((x, y) => new Date(y.end_time).getTime() - new Date(x.end_time).getTime())[0]
   if (!wish) return
 
   const data: any = await apiGetGachaInfo(wish.gacha_id)

@@ -19,8 +19,16 @@
     ></video>
 
     <div v-if="state.step === Step.cover" :class="['gacha-cover', { mask: state.showMask }]">
-      <div class="gacha-cover-bg" v-if="state.showMask" :style="{ '--bg': curRankColor }"></div>
-      <img class="gacha-cover-img" :src="getImgUrl(props.items[state.index])" />
+      <div
+        class="gacha-cover-bg"
+        v-if="state.showMask"
+        :style="{ '--bg': rankColorMap[curItem.rank] }"
+      ></div>
+      <div class="gacha-cover-name" v-else :style="{ '--r': curItem.rank }">
+        {{ curItem.item_name }}
+        <div>{{ '★'.repeat(curItem.rank) }}</div>
+      </div>
+      <img class="gacha-cover-img" :src="getImgUrl(curItem)" />
     </div>
 
     <div v-if="state.step === Step.result" class="gacha-result">
@@ -29,8 +37,9 @@
           class="gacha-result-item"
           v-for="(item, index) in state.items"
           :key="item.item_name + index"
-          :style="{ backgroundImage: `url(${getImgUrl(item, 'result')})` }"
+          :style="{ '--c': rankColorMap[item.rank], '--r': item.rank }"
         >
+          <img class="gacha-result-item-img" :src="getImgUrl(item, 'result')" />
           <div class="gacha-result-item-text">{{ '★'.repeat(item.rank) }}</div>
         </div>
       </TransitionGroup>
@@ -64,25 +73,28 @@ const state = reactive<{ step: Step; index: number; showMask: boolean; items: Ga
   items: []
 })
 
+const rankColorMap = {
+  3: '#004cff',
+  4: '#c666d8',
+  5: '#f6ca52'
+}
+
 const animationUrl = computed(() => {
   const rank = props.items.reduce((acc, cur) => Math.max(acc, cur.rank), 0)
   if (!rank) return ''
 
   const act = props.items.length > 1 ? 'ten' : 'single'
-  return `/videos/r${rank}-${act}.mp4`
+  return new URL(`../assets/videos/r${rank}-${act}.mp4`, import.meta.url).href
 })
 
-const curRankColor = computed(() => {
-  const r = props.items[state.index]?.rank
-  return { 3: '#74ade9', 4: '#c666d8', 5: '#f1c40f' }[r]
-})
+const curItem = computed(() => props.items[state.index])
 
 const getImgUrl = (item: GachaItem, type: 'cover' | 'result' = 'cover') => {
   if (!item || !type) return ''
   if (item.item_type === '武器') {
-    return `/imgs/gacha_weapon/${item.item_name}.png`
+    return new URL(`../assets/imgs/gacha_weapon/${item.item_name}.png`, import.meta.url).href
   }
-  return `/imgs/gacha_${type}/${item.item_name}.png`
+  return new URL(`../assets/imgs/gacha_${type}/${item.item_name}.png`, import.meta.url).href
 }
 
 const stageClick = () => {
@@ -130,11 +142,20 @@ const end = () => {
   state.step = Step.init
 }
 
+const preLoadResources = (srcs: string[]) => {
+  for (const src of srcs) {
+    new Image().src = src
+  }
+}
+
 watch(
   () => props.items,
   () => {
+    preLoadResources(props.items.map((item) => getImgUrl(item, 'cover')))
+    preLoadResources(props.items.map((item) => getImgUrl(item, 'result')))
     start()
-  }
+  },
+  { immediate: true }
 )
 watch(
   () => state.step,
@@ -160,11 +181,34 @@ defineExpose({
 .gacha-stage {
   position: fixed;
   inset: 0;
-  background-image: url('@/assets/imgs/gacha-bg.png');
-  backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #000;
+  @keyframes mask {
+    0% {
+      transform: scale(200%);
+    }
+    100% {
+      transform: scale(100%);
+    }
+  }
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+  }
+
+  &::after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    background-image: url('@/assets/imgs/gacha-bg.png');
+    background-size: cover;
+    filter: blur(10px);
+    opacity: 0.2;
+    z-index: -1;
+  }
   &.none {
     display: none;
   }
@@ -176,6 +220,7 @@ defineExpose({
     font-size: 18px;
     z-index: 100;
   }
+
   .gacha-cover,
   .gacha-result,
   .gacha-video {
@@ -194,16 +239,32 @@ defineExpose({
     &.mask {
       object-fit: contain;
       animation: mask 0.2s ease-out;
-      @keyframes mask {
-        0% {
-          transform: scale(200%);
-        }
-        100% {
-          transform: scale(100%);
-        }
-      }
       .gacha-cover-img {
         filter: brightness(0);
+      }
+    }
+
+    &-name {
+      position: absolute;
+      left: 10%;
+      top: 60%;
+      color: #fff;
+      font-size: 30px;
+      font-weight: 700;
+      > div {
+        color: gold;
+        width: calc(var(--r) * 1.2em);
+        height: 1.5em;
+        line-height: 1.5;
+        overflow-x: hidden;
+        letter-spacing: 0.2em;
+        text-shadow:
+          0 0 2px #fff,
+          0 0 2px gold,
+          0 0 5px gold,
+          0 0 10px gold;
+        animation: typing calc(var(--r) * 0.2s) steps(var(--r));
+        text-indent: 0.1em;
       }
     }
 
@@ -216,18 +277,15 @@ defineExpose({
       object-fit: contain;
     }
     &-bg {
-      backdrop-filter: blur(15px);
       background: radial-gradient(
         circle closest-side at center,
         var(--bg) 0,
-        var(--bg) 80%,
+        var(--bg) 50%,
         transparent 100%,
-        transparent 130%,
-        var(--bg) 150%,
-        var(--bg) 170%,
-        transparent 200%
+        var(--bg) 140%,
+        transparent 180%
       );
-      opacity: 0.3;
+      opacity: 0.1;
     }
   }
 
@@ -247,22 +305,27 @@ defineExpose({
     &-item {
       margin-left: 6px;
       width: 8%;
-      flex-grow: none;
-      aspect-ratio: 176 / 706;
-      background-color: #2d313b;
+      flex-grow: 0;
+      aspect-ratio: 100 / 438;
+      background: url('@/assets/imgs/card-bg.png') no-repeat center;
       background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;
+      filter: drop-shadow(0 0 0.5px #fff) drop-shadow(0 0 calc(0.5px * var(--r)) var(--c))
+        drop-shadow(0 0 calc(5px * var(--r)) var(--c));
+      &-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        mask: url('@/assets/imgs/card-bg.png') no-repeat center;
+        mask-size: cover;
+      }
       &-text {
         position: absolute;
-        bottom: 20px;
+        bottom: 12%;
         left: 0;
         right: 0;
         color: gold;
-        font-size: 20px;
+        font-size: 16px;
         text-align: center;
-        font-weight: 700;
       }
     }
   }

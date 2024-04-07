@@ -3,7 +3,7 @@
     {
       "is_up": 1,
       "item_id": -1,
-      "item_name": "千织",
+      "item_name": "那维莱特",
       "item_type": "角色",
       "order_value": 1,
       "rank": 5
@@ -28,34 +28,34 @@
     },
     {
       "is_up": 0,
-      "item_id": -29,
+      "item_id": -31,
       "item_name": "刻晴",
       "item_type": "角色",
-      "order_value": 29,
+      "order_value": 31,
       "rank": 5
     },
     {
       "is_up": 0,
-      "item_id": -30,
+      "item_id": -32,
       "item_name": "莫娜",
       "item_type": "角色",
-      "order_value": 30,
+      "order_value": 32,
       "rank": 5
     },
     {
       "is_up": 0,
-      "item_id": -33,
+      "item_id": -35,
       "item_name": "七七",
       "item_type": "角色",
-      "order_value": 33,
+      "order_value": 35,
       "rank": 5
     },
     {
       "is_up": 0,
-      "item_id": -42,
+      "item_id": -43,
       "item_name": "迪卢克",
       "item_type": "角色",
-      "order_value": 42,
+      "order_value": 43,
       "rank": 5
     },
     {
@@ -71,7 +71,7 @@
     {
       "is_up": 1,
       "item_id": -2,
-      "item_name": "多莉",
+      "item_name": "烟绯",
       "item_type": "角色",
       "order_value": 2,
       "rank": 4
@@ -79,7 +79,7 @@
     {
       "is_up": 1,
       "item_id": -3,
-      "item_name": "云堇",
+      "item_name": "行秋",
       "item_type": "角色",
       "order_value": 3,
       "rank": 4
@@ -87,7 +87,7 @@
     {
       "is_up": 1,
       "item_id": -4,
-      "item_name": "五郎",
+      "item_name": "芭芭拉",
       "item_type": "角色",
       "order_value": 4,
       "rank": 4
@@ -185,7 +185,7 @@
     {
       "is_up": 0,
       "item_id": -18,
-      "item_name": "柯莱",
+      "item_name": "多莉",
       "item_type": "角色",
       "order_value": 18,
       "rank": 4
@@ -193,7 +193,7 @@
     {
       "is_up": 0,
       "item_id": -19,
-      "item_name": "久岐忍",
+      "item_name": "柯莱",
       "item_type": "角色",
       "order_value": 19,
       "rank": 4
@@ -201,7 +201,7 @@
     {
       "is_up": 0,
       "item_id": -20,
-      "item_name": "绮良良",
+      "item_name": "久岐忍",
       "item_type": "角色",
       "order_value": 20,
       "rank": 4
@@ -209,7 +209,7 @@
     {
       "is_up": 0,
       "item_id": -21,
-      "item_name": "鹿野院平藏",
+      "item_name": "云堇",
       "item_type": "角色",
       "order_value": 21,
       "rank": 4
@@ -217,7 +217,7 @@
     {
       "is_up": 0,
       "item_id": -22,
-      "item_name": "九条裟罗",
+      "item_name": "绮良良",
       "item_type": "角色",
       "order_value": 22,
       "rank": 4
@@ -225,7 +225,7 @@
     {
       "is_up": 0,
       "item_id": -23,
-      "item_name": "早柚",
+      "item_name": "鹿野院平藏",
       "item_type": "角色",
       "order_value": 23,
       "rank": 4
@@ -233,7 +233,7 @@
     {
       "is_up": 0,
       "item_id": -24,
-      "item_name": "托马",
+      "item_name": "九条裟罗",
       "item_type": "角色",
       "order_value": 24,
       "rank": 4
@@ -241,7 +241,7 @@
     {
       "is_up": 0,
       "item_id": -25,
-      "item_name": "烟绯",
+      "item_name": "五郎",
       "item_type": "角色",
       "order_value": 25,
       "rank": 4
@@ -249,7 +249,7 @@
     {
       "is_up": 0,
       "item_id": -26,
-      "item_name": "罗莎莉亚",
+      "item_name": "早柚",
       "item_type": "角色",
       "order_value": 26,
       "rank": 4
@@ -257,7 +257,7 @@
     {
       "is_up": 0,
       "item_id": -27,
-      "item_name": "辛焱",
+      "item_name": "托马",
       "item_type": "角色",
       "order_value": 27,
       "rank": 4
@@ -265,47 +265,47 @@
     {
       "is_up": 0,
       "item_id": -28,
-      "item_name": "砂糖",
+      "item_name": "罗莎莉亚",
       "item_type": "角色",
       "order_value": 28,
       "rank": 4
     },
     {
       "is_up": 0,
-      "item_id": -31,
-      "item_name": "迪奥娜",
+      "item_id": -29,
+      "item_name": "辛焱",
       "item_type": "角色",
-      "order_value": 31,
+      "order_value": 29,
       "rank": 4
     },
     {
       "is_up": 0,
-      "item_id": -32,
-      "item_name": "重云",
+      "item_id": -30,
+      "item_name": "砂糖",
       "item_type": "角色",
-      "order_value": 32,
+      "order_value": 30,
+      "rank": 4
+    },
+    {
+      "is_up": 0,
+      "item_id": -33,
+      "item_name": "迪奥娜",
+      "item_type": "角色",
+      "order_value": 33,
       "rank": 4
     },
     {
       "is_up": 0,
       "item_id": -34,
-      "item_name": "诺艾尔",
+      "item_name": "重云",
       "item_type": "角色",
       "order_value": 34,
       "rank": 4
     },
     {
       "is_up": 0,
-      "item_id": -35,
-      "item_name": "班尼特",
-      "item_type": "角色",
-      "order_value": 35,
-      "rank": 4
-    },
-    {
-      "is_up": 0,
       "item_id": -36,
-      "item_name": "菲谢尔",
+      "item_name": "诺艾尔",
       "item_type": "角色",
       "order_value": 36,
       "rank": 4
@@ -313,7 +313,7 @@
     {
       "is_up": 0,
       "item_id": -37,
-      "item_name": "凝光",
+      "item_name": "班尼特",
       "item_type": "角色",
       "order_value": 37,
       "rank": 4
@@ -321,7 +321,7 @@
     {
       "is_up": 0,
       "item_id": -38,
-      "item_name": "行秋",
+      "item_name": "菲谢尔",
       "item_type": "角色",
       "order_value": 38,
       "rank": 4
@@ -329,7 +329,7 @@
     {
       "is_up": 0,
       "item_id": -39,
-      "item_name": "北斗",
+      "item_name": "凝光",
       "item_type": "角色",
       "order_value": 39,
       "rank": 4
@@ -337,7 +337,7 @@
     {
       "is_up": 0,
       "item_id": -40,
-      "item_name": "香菱",
+      "item_name": "北斗",
       "item_type": "角色",
       "order_value": 40,
       "rank": 4
@@ -345,17 +345,17 @@
     {
       "is_up": 0,
       "item_id": -41,
-      "item_name": "雷泽",
+      "item_name": "香菱",
       "item_type": "角色",
       "order_value": 41,
       "rank": 4
     },
     {
       "is_up": 0,
-      "item_id": -43,
-      "item_name": "芭芭拉",
+      "item_id": -42,
+      "item_name": "雷泽",
       "item_type": "角色",
-      "order_value": 43,
+      "order_value": 42,
       "rank": 4
     },
     {

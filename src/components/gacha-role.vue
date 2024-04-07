@@ -3,17 +3,21 @@
     <header>祈愿</header>
 
     <main>
-      <img
+      <!-- <img
         class="gacha-banner"
         src="https://upload-bbs.miyoushe.com/upload/2024/03/08/75276539/a8a7c4e258ab06b740c30894ef349bed_4719338358654233357.jpg"
-      />
+      /> -->
     </main>
 
     <footer>
-      <button @click="handleSingleClick">祈愿 1 次</button>
-      <button @click="handleTenClick">祈愿 10 次</button>
+      <button class="gacha-history" @click="showHistory = true">历史记录</button>
+      <div class="gacha-action">
+        <button @click="handleSingleClick">祈愿 1 次</button>
+        <button @click="handleTenClick">祈愿 10 次</button>
+      </div>
     </footer>
     <GachaStage v-if="items.length" :items="items" />
+    <GachaHistory :history="state.gacha_history" v-model="showHistory" />
   </div>
 </template>
 
@@ -21,10 +25,11 @@
 import { ref } from 'vue'
 import { useGacha, type GachaItem } from '@/hooks/use-gacha'
 import GachaStage from './gacha-stage.vue'
+import GachaHistory from './gacha-history.vue'
 
 const items = ref<GachaItem[]>([])
 
-const { singleRoleGacha, tenRoleGacha } = useGacha()
+const { state, singleRoleGacha, tenRoleGacha } = useGacha()
 
 const handleSingleClick = () => {
   const res = singleRoleGacha()
@@ -35,6 +40,8 @@ const handleTenClick = () => {
   const res = tenRoleGacha()
   items.value = [...res]
 }
+
+const showHistory = ref(false)
 </script>
 
 <style lang="scss" scoped>
@@ -43,7 +50,7 @@ const handleTenClick = () => {
   grid-template-rows: 80px 1fr 80px;
   height: 100vh;
   padding: 0 20px;
-  background: url('@/assets/imgs/gacha-bg.png') no-repeat center;
+  // background: url('@/assets/imgs/gacha-bg.png') no-repeat center;
   background-size: cover;
   header,
   footer {
@@ -55,16 +62,27 @@ const handleTenClick = () => {
     color: #fff;
   }
   footer {
-    justify-content: end;
-    > button {
+    justify-content: space-between;
+    button {
       border: 0;
+      font-weight: 700;
+    }
+    .gacha-history {
+      padding: 0 30px;
+      background-color: #e3e0d6;
+      color: #333;
+      height: 30px;
+      border-radius: 999px;
+      font-size: 16px;
+      filter: drop-shadow(0px 0px 2px #00000033)
+    }
+    .gacha-action > button {
       height: 60px;
       aspect-ratio: 355 / 88;
       background: url('@/assets/imgs/icon-wish.png') center;
       background-size: contain;
       color: #a49176;
       font-size: 16px;
-      font-weight: bold;
     }
   }
 
