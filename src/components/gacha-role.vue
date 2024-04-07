@@ -3,10 +3,10 @@
     <header>祈愿</header>
 
     <main>
-      <!-- <img
+      <img
         class="gacha-banner"
-        src="https://upload-bbs.miyoushe.com/upload/2024/03/08/75276539/a8a7c4e258ab06b740c30894ef349bed_4719338358654233357.jpg"
-      /> -->
+        src="https://sdk-webstatic.mihoyo.com/upload/ann/2024/03/22/3b9fac6681831058d44e05ec9aac306e_6715383311887256227.jpg"
+      />
     </main>
 
     <footer>
@@ -50,7 +50,7 @@ const showHistory = ref(false)
   grid-template-rows: 80px 1fr 80px;
   height: 100vh;
   padding: 0 20px;
-  // background: url('@/assets/imgs/gacha-bg.png') no-repeat center;
+  background: url('@/assets/imgs/gacha-bg.png') no-repeat center;
   background-size: cover;
   header,
   footer {
@@ -74,7 +74,7 @@ const showHistory = ref(false)
       height: 30px;
       border-radius: 999px;
       font-size: 16px;
-      filter: drop-shadow(0px 0px 2px #00000033)
+      filter: drop-shadow(0px 0px 2px #00000033);
     }
     .gacha-action > button {
       height: 60px;
