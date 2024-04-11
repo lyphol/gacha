@@ -1,9 +1,7 @@
-<script lang="ts" setup>
-import GachaRole from './components/gacha-role.vue'
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <GachaRole />
+  <RouterView />
 </template>
 
 <style scoped></style>
