@@ -1,5 +1,9 @@
 <template>
-  <div :class="['gacha-stage', { none: state.step === Step.init }]" @click="stageClick">
+  <div
+    v-if="items.length"
+    :class="['gacha-stage', { none: state.step === Step.init }]"
+    @click="stageClick"
+  >
     <div
       v-if="state.step === Step.cover || state.step === Step.result"
       class="gacha-skip"
@@ -84,11 +88,14 @@ const animationUrl = computed(() => {
   if (!rank) return ''
 
   const act = props.items.length > 1 ? 'ten' : 'single'
-  return new URL(`../assets/videos/r${rank}-${act}.mp4`, import.meta.url).href
+  return getVideoUrl(rank, act)
 })
 
 const curItem = computed(() => props.items[state.index])
 
+const getVideoUrl = (rank: number, act: 'single' | 'ten') => {
+  return new URL(`../assets/videos/r${rank}-${act}.mp4`, import.meta.url).href
+}
 const getImgUrl = (item: GachaItem, type: 'cover' | 'result' = 'cover') => {
   if (!item || !type) return ''
   if (item.item_type === '武器') {
@@ -142,17 +149,41 @@ const end = () => {
   state.step = Step.init
 }
 
-const preLoadResources = (srcs: string[]) => {
+const preLoadResources = (srcs: string[], type: 'image' | 'video') => {
   for (const src of srcs) {
-    new Image().src = src
+    if (type === 'video') {
+      const video = document.createElement('video')
+      video.src = src
+      video.preload = 'auto'
+      video.muted = true
+    } else if (type === 'image') {
+      const img = document.createElement('img')
+      img.src = src
+    }
   }
 }
-
+const preloadVideo = () => {
+  const videoUrls = [
+    getVideoUrl(3, 'single'),
+    getVideoUrl(4, 'single'),
+    getVideoUrl(5, 'single'),
+    getVideoUrl(4, 'ten'),
+    getVideoUrl(5, 'ten')
+  ]
+  preLoadResources(videoUrls, 'video')
+}
+preloadVideo()
 watch(
   () => props.items,
   () => {
-    preLoadResources(props.items.map((item) => getImgUrl(item, 'cover')))
-    preLoadResources(props.items.map((item) => getImgUrl(item, 'result')))
+    preLoadResources(
+      props.items.map((item) => getImgUrl(item, 'cover')),
+      'image'
+    )
+    preLoadResources(
+      props.items.map((item) => getImgUrl(item, 'result')),
+      'image'
+    )
     start()
   },
   { immediate: true }
@@ -238,7 +269,7 @@ defineExpose({
     align-items: center;
     &.mask {
       object-fit: contain;
-      animation: mask 0.2s ease-out;
+      animation: mask 0.2s ease-out 1;
       .gacha-cover-img {
         filter: brightness(0);
       }

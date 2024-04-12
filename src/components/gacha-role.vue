@@ -16,7 +16,7 @@
         <button @click="handleTenClick">祈愿 10 次</button>
       </div>
     </footer>
-    <GachaStage v-if="items.length" :items="items" />
+    <GachaStage :items="items" />
     <GachaHistory :history="state.gacha_history" v-model="showHistory" />
   </div>
 </template>
