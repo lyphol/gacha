@@ -1,11 +1,23 @@
 import { reactive } from 'vue'
 import * as echarts from 'echarts/core'
-import { GridComponent, TitleComponent, type GridComponentOption } from 'echarts/components'
+import {
+  GridComponent,
+  TitleComponent,
+  TooltipComponent,
+  type GridComponentOption
+} from 'echarts/components'
 import { ScatterChart, type ScatterSeriesOption } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
 
-echarts.use([GridComponent, TitleComponent, ScatterChart, CanvasRenderer, UniversalTransition])
+echarts.use([
+  GridComponent,
+  TitleComponent,
+  TooltipComponent,
+  ScatterChart,
+  CanvasRenderer,
+  UniversalTransition
+])
 
 type EChartsOption = echarts.ComposeOption<GridComponentOption | ScatterSeriesOption>
 type Matrix = number[][]
@@ -56,6 +68,7 @@ function computeMatrix(matrix: Matrix) {
 
   // 花6元开始游戏
   x[0] = 6
+  // 获取碎片数 0.82 * 2 + 0.17 * 12 + 0.01 * 36
   y[0] = 16.5
 
   // 散点图数据
@@ -124,23 +137,6 @@ export const useChart = () => {
         minCost: 0,
         minCostCount: 0,
         scatterData: []
-      },
-      {
-        title: '全部保护追加',
-        el: 'chart-el-2',
-        matrix: [
-          [0, 0.82, 0.17, 0.01, 0, 0, 0, 0],
-          [0, 0, 0.82, 0.17, 0.01, 0, 0, 0],
-          [0, 0, 0, 0.82, 0.17, 0.01, 0, 0],
-          [0, 0, 0, 0, 0.82, 0.17, 0.01, 0],
-          [0, 0, 0, 0, 0, 0.82, 0.17, 0.01],
-          [0, 0, 0, 0, 0, 0, 0.82, 0.18],
-          [0, 0, 0, 0, 0, 0, 1, 0],
-          [0, 0, 0, 0, 0, 0, 0, 1]
-        ],
-        minCost: 0,
-        minCostCount: 0,
-        scatterData: []
       }
     ]
   })
@@ -155,6 +151,10 @@ export const useChart = () => {
         title: {
           text: item.title,
           textAlign: 'left'
+        },
+        tooltip: {
+          trigger: 'item',
+          triggerOn: 'mousemove'
         },
         xAxis: {},
         yAxis: {},

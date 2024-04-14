@@ -7,13 +7,14 @@
 </template>
 
 <script lang="ts" setup>
+import { nextTick } from 'vue'
 import { useChart } from '@/hooks/use-chart'
 
 const { state, drawChart } = useChart()
 
-setTimeout(() => {
+nextTick(() => {
   drawChart()
-}, 3000)
+})
 </script>
 
 <style lang="scss" scoped>
