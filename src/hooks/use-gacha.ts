@@ -120,7 +120,7 @@ export function useGacha() {
     }
 
     // 记录抽卡历史
-    state.gacha_history.push({ ...res, wish_time: Date.now() })
+    state.gacha_history.unshift({ ...res, wish_time: Date.now() })
     setCache()
     return { ...res }
   }
